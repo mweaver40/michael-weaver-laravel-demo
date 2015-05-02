@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Mweaver
+        psr4_prefix: Mweaver
+        src_path: app
