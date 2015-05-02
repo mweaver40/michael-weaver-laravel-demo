@@ -36,6 +36,10 @@ class ProductSeeder extends Seeder {
 
         $companyCnt = count($this->companyNames);
         $images = ImageHelper::getImageKeyArrary();
+        /* Commented out is extreamly slow to execute
+         * It seems like it may create a prepared statement
+         * for each row.
+         */
         /*
           foreach (range(1, 5000) as $id) {
           $product = new Product();
@@ -46,24 +50,28 @@ class ProductSeeder extends Seeder {
           $now = new DateTime();
           $product->effective = $now->format('Y-m-d H:i:s');
           $product->save();
-          //$image = new Image();
-          //$this->createImage($product, 1);
-          //$this->createImage($product, 2);
-
-
          */
         $now = new DateTime();
         $effStr = $now->format('Y-m-d H:i:s');
+        $inserts = array();
+        $commitCnt = 100;
         foreach (range(1, 5000) as $id) {
-            $product = new Product();
-            $product->name = "dog";
-            $product->description = "BLah Blah";
-            $product->company = "woof";
-            $product->effective = $effStr;
-            $product->save();
-            //$image = new Image();
-            //$this->createImage($product, 1);
-            //$this->createImage($product, 2);
+            $name = $faker->text(mt_rand(15, 30));
+            $description = $faker->text(mt_rand(75, 200));
+            $company_product_id = $faker->randomNumber(5);
+            $company = $this->companyNames[mt_rand(0, $companyCnt - 1)];         
+            $inserts[] = ['name' => $name, 'description' => $description,
+                'company' => $company, 'effective' => $effStr, 
+                'company_product_id' => $company_product_id];
+            if ($id % $commitCnt == 0) {
+                //echo("commiting at $id\n");
+                DB::table('product')->insert($inserts);
+                $inserts = array();
+            }
+        }
+        if (count($inserts) != 0) {
+            //echo ("Commiting final");
+            DB::table('product')->insert($inserts);
         }
     }
 
