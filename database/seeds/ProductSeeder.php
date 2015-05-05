@@ -6,7 +6,7 @@ use Mweaver\Store\Product\Product;
 use Mweaver\Store\Product\Image;
 use Mweaver\Store\Product\Price;
 
-class ProductSeeder extends Seeder {
+class ProductSeeder extends DrivenSeeder {
 
     public $companyNames = array(
         'Scuba Dog',
@@ -55,13 +55,13 @@ class ProductSeeder extends Seeder {
         $effStr = $now->format('Y-m-d H:i:s');
         $inserts = array();
         $commitCnt = 100;
-        foreach (range(1, 5000) as $id) {
+        foreach (range(1, DatabaseSeeder::$recordsToSeed) as $id) {
             $name = $faker->text(mt_rand(15, 30));
             $description = $faker->text(mt_rand(75, 200));
             $company_product_id = $faker->randomNumber(5);
-            $company = $this->companyNames[mt_rand(0, $companyCnt - 1)];         
+            $company = $this->companyNames[mt_rand(0, $companyCnt - 1)];
             $inserts[] = ['name' => $name, 'description' => $description,
-                'company' => $company, 'effective' => $effStr, 
+                'company' => $company, 'effective' => $effStr,
                 'company_product_id' => $company_product_id];
             if ($id % $commitCnt == 0) {
                 //echo("commiting at $id\n");
@@ -73,17 +73,25 @@ class ProductSeeder extends Seeder {
             //echo ("Commiting final");
             DB::table('product')->insert($inserts);
         }
+        $data = [];
+        $productModel = new Product();
+        $productBuilder = $productModel->whereRaw(' end is null and effective <= ? ', [$effStr]);
+        
+        $this->populateTableFromDrivingTable($productBuilder, 'product_image', 100, $data, 
+                function (&$product, &$images, &$data) {
+            foreach (range(1, 2) as $rank) {
+                $type = "thumb";
+                $product_id = $product->id;
+                $location = "/image/store/products/small";
+                $name = $product->id . "_$rank.jpg";
+                $rank;
+                $images[] = ['type' => $type, 'product_id' => $product_id,
+                    'location' => $location, 'name' => $name,
+                    'importance' => $rank];
+            }
+        });
     }
 
-    private function createImage($product, $importance) {
-        $image = new Image();
-
-        $image->type = "thumb";
-        $image->product()->associate($product);
-        $image->location = "/image/store/products/small";
-        $image->name = $product->id . "_$importance.jpg";
-        $image->importance = $importance;
-        $image->save();
-    }
+   
 
 }

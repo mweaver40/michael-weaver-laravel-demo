@@ -16,23 +16,44 @@ class DatabaseSeeder extends Seeder {
      *
      * @return void
      */
+    
+    public static $recordsToSeed = 500;
+    
     public function run() {
         
+        /*
+        $now = new DateTime();
+        $nowStr = $now->format('Y-m-d H:i:s');
+        $catalogModel = new Catalog();
+        $catalogs = $catalogModel->whereRaw(' end is null and effective < ? ', [$nowStr]);
+        
+        ProductDrivenSeeder::populateTableFromDrivingTable($catalogs, 'description', 
+                200, $nowStr, \Faker\Factory::create(),
+                function (&$row, &$inserts, $now, &$faker) {
+                    echo($row->id);
+                    $description = $faker->text(mt_rand(200, 2000));
+                    $inserts[] = ['description' => $description];
+                });
+    exit();
+        */
+
         // Delete all the product and catalog releated table rows. Trunc is more efficant but so what
         Model::unguard();
-        Price::whereRaw('id is not null')->delete();
-        Image::whereRaw('id is not null')->delete();
+        
+        // Vategory must go first since other code uses the category
         Category::whereRaw('id is not null')->delete();
+        Price::whereRaw('id is not null')->delete(); 
+        Image::whereRaw('id is not null')->delete();     
         Catalog::whereRaw('id is not null')->delete();
         Product::whereRaw('id is not null')->delete();
         Description::whereRaw('id is not null')->delete();
         ImageHelper::deleteAllImageFilesAssociatedWithProducts();
+        
            
         // In 5.4 we could use (new ProductSeeder)->run()
         echo "Deletes complete: Starting seed\n";
         $ps = (new ProductSeeder);
         $ps->run();
-        exit();
         echo "Product seeded\n";
         $cg = new CategorySeeder();
         $cg->run();

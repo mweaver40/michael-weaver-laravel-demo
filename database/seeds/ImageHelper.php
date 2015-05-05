@@ -70,10 +70,12 @@ class ImageHelper {
     public static function createImageFilesForProducts() {
         $product = new Product();
         $products = $product->whereRaw("end is null")->get();
+        
         foreach ($products as $product) {
             $category = CategorySeeder::determineCategory($product);
             $images = $product->images;
-            $imageKey = $category . "_" . mt_rand(1, self::$imagesPerCategory);
+            $offSet = CategorySeeder::determineCategoryOffset($product);
+            $imageKey = $offSet . "_" . mt_rand(1, self::$imagesPerCategory);
             $src = self::$imageLookup[$imageKey];
             foreach ($images as $image) {
                 copy(self::$srcDir . "\\$src", self::$destDir . "\\" . $image->name);              
