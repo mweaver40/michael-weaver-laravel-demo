@@ -27,4 +27,9 @@ class Product extends Model {
      public function images() {
         return $this->hasMany('Mweaver\Store\Product\Image');
     }
+    
+    public function scopeActive($query, $now)
+    {
+        return $query->whereRaw(' end is null and effective <= ? ', [$now]);
+    }
 }
