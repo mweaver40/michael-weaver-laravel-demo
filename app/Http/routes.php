@@ -15,12 +15,21 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+/*
+Route::get('/test/{dog}', function($dog) {
+    echo ("woof") . $dog . "\n";
+});
+ * 
+ */
+
 Route::get('users', function()
 {
    return View::make('users');
 });
 
 Route::controllers([
+        
+        'test' => 'Store\TestController',
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
         'store' => 'Store\StoreController',
