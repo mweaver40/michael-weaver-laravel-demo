@@ -1,5 +1,4 @@
 <?php
-
 namespace Mweaver\Store\Catalog;
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -7,13 +6,12 @@ namespace Mweaver\Store\Catalog;
  * and open the template in the editor.
  */
 
-use Illuminate\Database\Eloquent\Model;
-
-class Category extends Model
-{
-    use WebModelTrait;
-
-    protected $table = 'catalog_category';
-    
-    public $timestamps = false;
+/**
+ * Rturns a we compatable alias that replaces spaces with - char
+ */
+trait WebModelTrait {
+   
+    public function getAlias() {
+            return str_replace(" ", "-", $this->name);   
+    }
 }

@@ -17,24 +17,32 @@
 
     </head>
     <body>
+
+
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar2,#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="background: #dfd" href="#"><span style="margin-top: -50%"> Hire</span> Mike</a>
+
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul> 
+
+                <!--shoppingCartCnt-->
+            </div><!--/.nav-collapse -->
+
+        </div><!--/.navbar -->
+
         <div class="container-fluid">
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div><!--/.navbar -->
 
             <div class="row-offcanvas row-offcanvas-left" >
                 <div id="sidebar" class="sidebar-offcanvas" >
@@ -44,13 +52,40 @@
                     </div>
                 </div>
                 <div id="main"> 
-                    
+                    <div class="navbar navbar-default navbar-static-top">
+
+                        <div id="navbar2" class="navbar-default">
+                           
+
+                                <div class="pull-right">
+                                    <button class="btn btn-default navbar-btn">
+                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Login
+                                    </button>
+                                    <button class="btn btn-default navbar-btn">
+                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Account
+                                    </button>
+                                    <button class="btn btn-default navbar-btn">
+                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Cart
+                                        <span id="shop-cart-button-cnt" class="badge badge-success badge-xs">
+                                            10</span>
+                                    </button>
+                                </div>
+                             <form class="navbar-form" role="search">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                             </form>
+                        </div><!--/.nav-collapse -->
+                    </div>
                     <div class="col-md-12">
                         <p class="visible-xs">
                             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
                         </p>
                     </div>
-                    
+
                     @yield('content')
                 </div>
             </div>

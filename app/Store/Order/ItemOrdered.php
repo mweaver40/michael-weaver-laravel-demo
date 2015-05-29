@@ -1,19 +1,21 @@
 <?php
 
-namespace Mweaver\Store\Catalog;
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+namespace Mweaver\Store\Order;
+
+
 use Illuminate\Database\Eloquent\Model;
-
-class Category extends Model
-{
-    use WebModelTrait;
-
-    protected $table = 'catalog_category';
-    
+/**
+ * Description of ItemOrdered
+ *
+ * @author MIchael
+ */
+class ItemOrdered extends Model{
+    protected $table = 'item_ordered';
     public $timestamps = false;
-}
+} 
