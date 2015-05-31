@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\URL;
+?>
 <html>
     <head> 
 
@@ -12,8 +15,14 @@
 
         <!-- Bootstrap core CSS -->
         <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+        
+        <link rel="stylesheet" href="{{ URL::asset('/css/bootstrap.css')}}"/>
+        <link rel="stylesheet" href="{{ URL::asset('/css/store1.css')}}"/>
+
+        <!--
         <link rel="stylesheet" href="/css/bootstrap.css">
         <link rel="stylesheet" href="/css/store1.css">
+        -->
 
     </head>
     <body>
@@ -90,8 +99,8 @@
                 </div>
             </div>
         </div>
-        <script src="/js/jquery.js"></script>
-        <script src="/js/bootstrap.js"></script>
-        <script src="/js/store1.js"></script>
+        <script src="{{URL::asset('/js/jquery.js')}}"></script>
+        <script src="{{URL::asset('/js/bootstrap.js')}}"></script>
+        <script src="{{URL::asset('/js/store1.js')}}"></script>
     </body>
 </html>  
