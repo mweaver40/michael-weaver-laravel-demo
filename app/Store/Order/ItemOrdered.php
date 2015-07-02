@@ -8,14 +8,20 @@
 
 namespace Mweaver\Store\Order;
 
-
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * Description of ItemOrdered
  *
  * @author MIchael
  */
-class ItemOrdered extends Model{
+class ItemOrdered extends Model {
+
     protected $table = 'item_ordered';
     public $timestamps = false;
-} 
+
+    public function catalog() {
+        return $this->belongsTo('Mweaver\Store\Catalog\Catalog');
+    }
+
+}

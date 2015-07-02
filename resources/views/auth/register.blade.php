@@ -22,9 +22,16 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">First Name</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="firstName" value="{{ old('firstName') }}">
+							</div>
+						</div>
+                                                
+                                                <div class="form-group">
+							<label class="col-md-4 control-label">Last Name</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="lastName" value="{{ old('lastName') }}">
 							</div>
 						</div>
 
@@ -62,4 +69,10 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('pageJavascript')
+$(document).ready(function () {
+ /* Call option set on document load */
+    authOptions($('input[type=radio][name=optCheckout]:checked').get(0));
+    }
 @endsection

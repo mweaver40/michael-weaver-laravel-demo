@@ -3,7 +3,6 @@ body,html,.row-offcanvas  {
 }
 
 
-
 body {
     padding-top: 50px;
 }
@@ -102,4 +101,70 @@ body {
     padding: 0px;
     margin: 0px;
 
+}
+
+.row-divider
+{
+  border-top-style: solid;  
+  border-width: 2px; 
+  margin-bottom: 10px;
+}
+
+
+.error
+{
+    color:red;
+}
+
+/* Adds required field attribute */
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+/* allows disabling a link */
+a[disabled] {
+    pointer-events: none;
+    color: gray;
+}
+
+
+.cc-selector input{
+    margin:0;padding:0;
+    /*
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+    */
+}
+
+
+.visa{background-image:url(/images/store/visa_logo_small.gif);}
+.mastercard{background-image:url(/images/store/mastercard_logo_small.gif);}
+.amex{background-image:url(/images/store/american_express_logo_small.gif);}
+
+
+.cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.cc-selector input:checked +.drinkcard-cc{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+.drinkcard-cc{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:50px;height:35px;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.drinkcard-cc:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
 }

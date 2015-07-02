@@ -7,6 +7,9 @@
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>CartController</word>
+            <word>elseif</word>
+            <word>endif</word>
+            <word>endsection</word>
             <word>php</word>
         </spellchecker-wordlist>
     </configuration>

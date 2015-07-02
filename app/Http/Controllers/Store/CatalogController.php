@@ -35,16 +35,16 @@ class CatalogController extends Controller {
     $offset = ($page - 1) * $limit;
     //$category = new Category();
     
-    // todo! chahce the categoreis
+    // todo! change the categories
     
     $categories = Category::orderBy('id')->get();
     $category = isset($categoryName) ? $this->getCategoryByName($categories, $categoryName) : $categories[0];
     $data['categories'] = $categories;
     $data['catalogItems'] =  $catalog->getCatalogPage($now, 'thumb', $category->id, $offset, $limit);
-    $foo = $catalog->getCatalogCategoryItemCnt($category->id, $now);
     $data['totalItems'] = $catalog->getCatalogCategoryItemCnt($category->id, $now);
     $data['limit'] = $limit;
     $data['category'] = $category;
+    $data['cartCnt'] = CartController::getCartCnt();
     return view('store.catalogPage', $data);
     }
     
@@ -74,7 +74,20 @@ class CatalogController extends Controller {
         $categories = Category::orderBy('id')->get();
         $category = isset($categoryName) ? $this->getCategoryByName($categories, $categoryName) : $categories[0];
         $data['categories'] = $categories;
-        return view('store.productInfo', ['catalog' => $catalog, 'images' => $images, 'price' => $price, 'categories' => $categories]);  
+        $cartCnt = CartController::getCartCnt();
+        return view('store.productInfo', ['catalog' => $catalog, 'images' => $images, 
+            'price' => $price, 'categories' => $categories,
+                'cartCnt' => $cartCnt]);  
+    }
+    
+    public static function getCatalogPageBasicInformation()
+    {
+        $data = array();
+        $categories = Category::orderBy('id')->get();
+        $data['categories'] = $categories;
+        $cartCnt = CartController::getCartCnt();
+        $data['cartCnt'] = $cartCnt;
+        return $data;
     }
 
 }

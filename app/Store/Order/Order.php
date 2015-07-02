@@ -28,7 +28,7 @@ const SUBMITED = "submited";
 static protected $statusStates = NULL;
 
     public function items() {
-        return $this->belongsTo('Mweaver\Store\Order\ItemOrdered');
+        return $this->hasMany('Mweaver\Store\Order\ItemOrdered');
     }
 
     /**
@@ -37,7 +37,6 @@ static protected $statusStates = NULL;
      */
     public function setStatus($inStatus)
     {
-        echo "In the set status";
         if (!isset(self::$statusStates))
         {
             /*
@@ -46,7 +45,6 @@ static protected $statusStates = NULL;
              * we don' do it here. Probably no harm anyway since worse 
              * case it we reset the orderstates
              */
-            echo "building order states ";
             $rc = new ReflectionClass(__CLASS__);
             Self::$statusStates = $rc->getConstants();
         }

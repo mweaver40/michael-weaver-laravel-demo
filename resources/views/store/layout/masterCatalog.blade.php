@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\URL;
 ?>
 <html>
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\URL;
 
         <!-- Bootstrap core CSS -->
         <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
-        
+
         <link rel="stylesheet" href="{{ URL::asset('/css/bootstrap.css')}}"/>
         <link rel="stylesheet" href="{{ URL::asset('/css/store1.css')}}"/>
 
@@ -56,38 +57,32 @@ use Illuminate\Support\Facades\URL;
             <div class="row-offcanvas row-offcanvas-left" >
                 <div id="sidebar" class="sidebar-offcanvas" >
                     <div class="col-md-12" >
-                        <h3>Sidebar (fixed)</h3>
+                        <h3>Dive Gear</h3>
                         @yield('sidebar');
                     </div>
                 </div>
                 <div id="main"> 
                     <div class="navbar navbar-default navbar-static-top">
-
-                        <div id="navbar2" class="navbar-default">
-                           
-
-                                <div class="pull-right">
-                                    <button class="btn btn-default navbar-btn">
-                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Login
-                                    </button>
-                                    <button class="btn btn-default navbar-btn">
-                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Account
-                                    </button>
-                                    <button class="btn btn-default navbar-btn">
-                                        <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Cart
-                                        <span id="shop-cart-button-cnt" class="badge badge-success badge-xs">
-                                            10</span>
-                                    </button>
-                                </div>
-                             <form class="navbar-form" role="search">
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
-                             </form>
-                        </div><!--/.nav-collapse -->
+                            <div class="pull-right">
+                                @if (Auth::check())
+                                <a href="{{URL::route('logout')}}" class="btn btn-default navbar-btn">
+                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Logout
+                                </a>
+                                @else
+                                <a href="{{URL::route('getLogin')}}" class="btn btn-default navbar-btn">
+                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Login
+                                </a>
+                                @endif
+                                <button class="btn btn-default navbar-btn">
+                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Account
+                                </button>
+                                <a href="{{URL::route('getCart')}}" class="btn btn-default navbar-btn" >
+                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Cart
+                                    <span id="shop-cart-button-cnt" class="badge badge-success badge-xs">
+                                        {{$cartCnt}}
+                                    </span>
+                                </a>
+                            </div>                                                 
                     </div>
                     <div class="col-md-12">
                         <p class="visible-xs">
@@ -101,6 +96,13 @@ use Illuminate\Support\Facades\URL;
         </div>
         <script src="{{URL::asset('/js/jquery.js')}}"></script>
         <script src="{{URL::asset('/js/bootstrap.js')}}"></script>
+        <script src="{{URL::asset('/js/jquery.validate.js')}}"></script>
+        <script src="{{URL::asset('/js/additional-methods.js')}}"></script>
         <script src="{{URL::asset('/js/store1.js')}}"></script>
+        <script src="{{URL::asset('/js/additional-methods.js')}}"></script>
+        @yield('pageJavascript')
     </body>
+
+
+
 </html>  

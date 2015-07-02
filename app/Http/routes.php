@@ -41,17 +41,85 @@ Route::get('scuba/{categoryName?}', [
     'as' => 'catalogPage', 'uses' => 'Store\CatalogController@getCatalogPage',
 ]);
 
-Route::get('scuba/{categoryName}/{productName}', [
-    'as' => 'productInfo', 'uses' => 'Store\CatalogController@getProductInfo',
-]);
-
 Route::post('scuba/cart/add', [
     'as' => 'addToCart', 'uses' => 'Store\CartController@addItem',
 ]);
 
+Route::get('scuba/cart/remove/{itemId}', [
+    'as' => 'removeFromCart', 'uses' => 'Store\CartController@removeItem',
+]);
+
+Route::get('scuba/cart/get', [
+    'as' => 'getCart', 'uses' => 'Store\CartController@getCart',
+]);
+
+Route::post('scuba/cart/update', [
+    'as' => 'updateCart', 'uses' => 'Store\CartController@updateCart',
+]);
+
+/*
+ * Route::post('scuba/cart/checkout', 
+    ['middleware' => 'auth', 
+        'https',
+        'as' => 'checkout',
+        'uses' => 'Store\CartController@checkout',
+]);
+ */
+Route::get('scuba/cart/checkout', 
+    [
+        'middleware' => 'auth',
+        'https',
+        'as' => 'checkout',
+        'uses' => 'Store\CartController@checkout',
+]);
+
+Route::get('scuba/{categoryName}/{productName}', [
+    'as' => 'productInfo', 'uses' => 'Store\CatalogController@getProductInfo',
+]);
+
+
+
+Route::get(
+    'auth/register', array(
+        'as'   => 'getRegister',
+        'https',
+        'uses' => 'Auth\AuthController@getRegister',
+    )
+);
+
+Route::get(
+    'auth/login', array(
+        'as'   => 'getLogin',
+        'https',
+        'uses' => 'Auth\AuthController@getLogin',
+    )
+);
+
+Route::post(
+    'auth/register', array(
+        'as'   => 'register',
+        'https',
+        'uses' => 'Auth\AuthController@postRegister',
+    )
+);
+
+Route::post(
+    'auth/login', array(
+        'as'   => 'login',
+        'https',
+        'uses' => 'Auth\AuthController@postLogin',
+    )
+);
+
+Route::get(
+    'auth/logout', array(
+        'as'   => 'logout',
+        'uses' => 'Auth\AuthController@getLogout',
+    )
+);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-        'store' => 'Store\StoreController',
-        'storecatalog' => 'Store\Catalog\CatalogController', 
 ]);
+

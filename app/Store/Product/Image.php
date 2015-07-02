@@ -4,6 +4,7 @@ namespace Mweaver\Store\Product;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
+use Exception;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,7 +33,15 @@ class Image extends Model {
                 ->orderBy('importance', 'asc')
                 ->get();
     }
-    
+    public static function getMainThumbURL($productId)
+    {
+        $image = self::where('product_id', '=', $productId)
+                ->where('type', '=', 'thumb')
+                ->where('importance', '=', 1)
+                ->first();
+        return "$image->location/$image->name";
+        
+    }
     public function getUrl()
     {
         //var_dump($this);

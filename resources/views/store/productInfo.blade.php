@@ -6,14 +6,14 @@
 
 <div id="addToCartOK"  class="col-md-12 storeMsg statusOK ">
     <div class="vcenter">
-    <span class="glyphicon glyphicon-ok"></span> <span> {{$catalog->product->name}} added to cart</span>
+    <span class="glyphicon glyphicon-ok"></span> <span> {{$catalog->name}} added to cart</span>
     </div>
           <div class='vcenter' style='height:100%;width:0px'></div>
 </div>
 
 <div id="addToCartFail"  class="col-md-12 storeMsg statusFail ">
     <div class="vcenter">
-    <span class="glyphicon glyphicon-remove"></span> <span>Unable to add {{$catalog->product->name}} to cart, try again later" </span>
+    <span class="glyphicon glyphicon-remove"></span> <span>Unable to add {{$catalog->name}} to cart, try again later" </span>
     </div>
           <div class='vcenter' style='height:100%;width:0px'></div>
 </div>
@@ -42,9 +42,9 @@
                 </div>
 
                 <div class="col-md-8 col-xs-6">
-                    <input type="hidden" value="{{$catalog->product->id}}" name="productId"/>
+                    <input type="hidden" value="{{$catalog->id}}" name="catalogId"/>
                     <input type="hidden" name="_token" id="csrf-token" value="{!!Session::token()!!}"/>
-                    <button class="btn btn-success btn-large"  type="submit" >
+                    <button class="btn btn-primary btn-large"  type="submit" >
                         <i class="icon-white icon-shopping-cart"></i> 
                         Add to Cart</button>
 
