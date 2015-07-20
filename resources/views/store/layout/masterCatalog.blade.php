@@ -65,18 +65,18 @@ use Illuminate\Support\Facades\URL;
                     <div class="navbar navbar-default navbar-static-top">
                             <div class="pull-right">
                                 @if (Auth::check())
-                                <a href="{{URL::route('logout')}}" class="btn btn-default navbar-btn">
-                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Logout
+                                <a href="{{URL::route('logout')}}" class="btn btn-sm navbar-btn">
+                                    <span class="glyphicon glyphicon-log-out" ></span> <br/>Logout
                                 </a>
                                 @else
-                                <a href="{{URL::route('getLogin')}}" class="btn btn-default navbar-btn">
-                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Login
+                                <a href="{{URL::route('getLogin')}}" class="btn btn-sm navbar-btn">
+                                    <span class="glyphicon glyphicon-log-in" ></span> <br/>Login
                                 </a>
                                 @endif
-                                <button class="btn btn-default navbar-btn">
-                                    <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Account
+                                <button class="btn btn-sm navbar-btn">
+                                    <span class="glyphicon glyphicon-user" ></span> <br/>Account
                                 </button>
-                                <a href="{{URL::route('getCart')}}" class="btn btn-default navbar-btn" >
+                                <a href="{{URL::route('getCart')}}" class="btn btn-sm navbar-btn" >
                                     <span class="glyphicon glyphicon-shopping-cart" ></span> <br/>Cart
                                     <span id="shop-cart-button-cnt" class="badge badge-success badge-xs">
                                         {{$cartCnt}}

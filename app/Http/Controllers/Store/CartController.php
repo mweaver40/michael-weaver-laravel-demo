@@ -9,8 +9,10 @@ use Mweaver\Util\Time;
 use Mweaver\Store\Order\Order;
 use \Exception;
 use Mweaver\Store\Order\ItemOrdered;
+use Mweaver\Store\Address;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Contracts\Auth\Registrar;
+use \Log;
 
 const CART_COOKIE = 'scubaCart';
 
@@ -18,8 +20,7 @@ class CartController extends Controller {
 
     protected $registrar;
 
-    public function __construct(Registrar $registrar)
-    {
+    public function __construct(Registrar $registrar) {
         $this->registrar = $registrar;
     }
 
@@ -47,7 +48,7 @@ class CartController extends Controller {
         $item->quantity = $quantity;
         $item->order_id = $order->id;
         $item->save();
-        //$order->items()->save($item);   
+//$order->items()->save($item);   
         $cnt = self::getCartCnt($order->id);
         DB::commit();
         return "$cnt";
@@ -60,13 +61,29 @@ class CartController extends Controller {
                 return 0;
             }
         }
-        //$count = ItemOrdered::where('order_id', '=', $cart)->where('status', '=', Order::PENDING)->count();
-        $count = ItemOrdered::where('order_id', '=', $cart)->count();
+        /* 
+         * This demonstrates why I am NOT fond of the query builder
+         * It takes somehting simple like SQL and makes it difficult 
+         * to write and understand while adding no extra value. 
+         * This is why I often use raw where statements.
+         */
+        
+        $count = ItemOrdered::where('order_id', '=', $cart)
+                ->where('status', '=', Order::PENDING)
+                ->join('order', 'order.id', '=', 'item_ordered.order_id')
+                ->count();
+        //$count = ItemOrdered::where('order_id', '=', $cart)->count();
         return (!isset($count)) ? 0 : $count;
     }
 
     public function getCart($orderId = null, $cart = null) {
 
+
+        $data = $this->getCartContents($orderId, $cart);
+        return view('store.cart', $data);
+    }
+
+    protected function getCartContents($orderId = null, $cart = null) {
         if (!isset($orderId)) {
             $orderId = Cookie::get(CART_COOKIE);
         }
@@ -79,15 +96,14 @@ class CartController extends Controller {
 
         if (isset($cart)) {
             foreach ($cart->items as $item) {
-                // Currrently only have a single price structure so use only one we have.
+// Currrently only have a single price structure so use only one we have.
                 $price = $item->catalog->product->getEffectivePrice();
                 $total += ($price->price * $item->quantity);
             }
         }
         $data['cart'] = $cart;
         $data['total'] = $total;
-
-        return view('store.cart', $data);
+        return $data;
     }
 
     function removeItem($item) {
@@ -129,21 +145,120 @@ class CartController extends Controller {
     }
 
     function checkout() {
-        $data = CatalogController::getCatalogPageBasicInformation();
+        $data = $this->getCartContents();
+// Set up a billing address to display 
+        $billing = isset($data['cart']->billing_address) ?
+                ($data['cart']->billingAddress) : new Address();
+        $shipping = isset($data['cart']->shipping_address) ?
+                ($data['cart']->shippingAddress) : new Address();
+        $data['billing'] = $billing;
+        $data['shipping'] = $shipping;
+
         return view("store.checkout", $data);
     }
 
     protected function getOrder($orderId) {
         $order = Order::with('items.catalog.product')->where('id', '=', $orderId)->where('status', '=', Order::PENDING)->first();
-        //echo ("XXXXXXXXX $order->items");
         return $order;
-        //return Order::with('items.catalog.product')->where('id', '=', $orderId)->where('status', '=', Order::PENDING);
-        /*
-          return Order::with(['items.catalog.product.prices' => function($q) {
-          $q->where('')
-          }])->where('id', '=', $orderId)->where('status', '=', Order::PENDING)->first();
+    }
 
-         */
+    public function updateBillingAddress() {
+        Log::debug("Entering updateBillingAddress");
+        DB::transaction(function () {
+            $order = $this->getOrderData();
+            if (isset($order)) {
+                // update the existing billing adress or create a new one
+                $address = $order->billingAddress;
+                if (!isset($address))
+                    $address = new Address();
+                $address = $this->fillOrderAddress($address);
+                $address->save();
+                $order->billing_address = $address->id;
+                $order->save();
+            }
+        });
+    }
+
+    public function updateShippingAddress() {
+        Log::debug("Entering updateShipping");
+        DB::transaction(function () {
+            $order = $this->getOrderData();
+            if (isset($order)) {
+// Set shipping addres same as billing
+                if (isset($_POST['useBillingAddress'])) {
+                    $useBilling = $_POST['useBillingAddress'];
+                    if ($useBilling == "1") {
+                        $order->shipping_address = $order->billing_address;
+                    }
+// Not updating use of billing address so update or create shipping address
+                } else {
+// update the existing billing adress or create a new one
+                    $address = $order->shippingAddress;
+                    // if no existing address or changing from billing address
+                    if (!isset($address) || $order->billing_address == $order->shipping_address)
+                        $address = new Address();
+
+                    $address = $this->fillOrderAddress($address);
+                    $address->save();
+                    $order->shipping_address = $address->id;
+                }
+                $order->save();
+            }
+        });
+    }
+
+    private function getOrderData() {
+
+        $order = null;
+        $orderId = Cookie::get(CART_COOKIE);
+        if (isset($orderId)) {
+
+            $order = $this->getOrder($orderId);
+            if (!isset($order)) {
+                throw new Exception("Order $orderId not found");
+            }
+        } else {
+            throw (new Exception("Cart cookie not valid"));
+        }
+        return $order;
+    }
+
+    /*
+     * Stubbed order process. Order status is updated to SUBMITED and
+     * cart cookie is removed. In reality it is likly we would
+     * call this after calling a third party service provider 
+     */
+
+    public function submitOrder() {
+        Log::debug("Entering submitOrder");
+        $order = $this->getOrderData();
+        if (isset($order)) {
+            $order->setStatus(Order::SUBMITED);
+            $order->save();
+            $data = CatalogController::getCatalogPageBasicInformation();
+            $data['orderId'] = $order->id;
+            $cookie = Cookie::forget(CART_COOKIE);
+            Cookie::queue($cookie);
+            
+        } else {
+            throw new Exception("Order $orderId not found");
+        }
+        return view('store.orderConfirm', $data);
+    }
+
+    
+    protected function fillOrderAddress($address) {
+        $address->line_1 = $_POST['line1'];
+        $address->line_2 = $_POST['line2'];
+        $address->first_name = $_POST['firstName'];
+        $address->last_name = $_POST['lastName'];
+        $address->company = $_POST['company'];
+        $address->telephone = $_POST['telephone'];
+        $address->city = $_POST['city'];
+        $address->state = $_POST['state'];
+        $address->country = $_POST['country'];
+        $address->zipcode = $_POST['zipcode'];
+        return $address;
     }
 
 }

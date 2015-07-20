@@ -18,12 +18,12 @@
 		],
 		"psr-4": {
 			"Mweaver\\": "app/"
-		}
+		},
+                "files": ["app/Helpers/viewHelper.php"]
 	},
 	"autoload-dev": {
 		"classmap": [
 			"tests/TestCase.php"
-                       
 		]
 	},
 	"scripts": {

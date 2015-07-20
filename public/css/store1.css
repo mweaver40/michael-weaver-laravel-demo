@@ -116,6 +116,10 @@ body {
     color:red;
 }
 
+.success
+{
+    color:#5cb85c;
+}
 /* Adds required field attribute */
 .form-group.required .control-label:after {
   content:"*";

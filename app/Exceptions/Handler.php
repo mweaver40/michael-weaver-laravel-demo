@@ -2,6 +2,7 @@
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use \Log;
 
 class Handler extends ExceptionHandler {
 
@@ -36,6 +37,7 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+            Log::debug("Entering render");
 		return parent::render($request, $e);
 	}
 

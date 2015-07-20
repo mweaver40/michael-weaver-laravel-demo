@@ -57,6 +57,19 @@ Route::post('scuba/cart/update', [
     'as' => 'updateCart', 'uses' => 'Store\CartController@updateCart',
 ]);
 
+Route::post('scuba/checkout/shippingAddress', [
+    'as' => 'orderShippingAddress', 'uses' => 'Store\CartController@updateShippingAddress',
+]);
+
+
+Route::post('scuba/checkout/billingAddress', [
+    'as' => 'orderBillingAddress', 'uses' => 'Store\CartController@updateBillingAddress',
+]);
+
+Route::post('scuba/checkout/submitOrder', [
+    'as' => 'submitOrder', 'uses' => 'Store\CartController@submitOrder',
+]);
+
 /*
  * Route::post('scuba/cart/checkout', 
     ['middleware' => 'auth', 
