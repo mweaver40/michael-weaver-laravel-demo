@@ -10,8 +10,8 @@
 
 
 <div class="row">
-    <div>
-        <div id="checkoutFail"  class="col-md-10 storeMsg statusFail ">
+    <div class="col-md-12">
+        <div id="checkoutFail"   class="storeMsg statusFail ">
 
         </div>
     </div>
@@ -49,11 +49,11 @@
         <div id="shipping-panel-body" class="panel-body collapse">
             <div class="col-xs-12">
                 <label class="control-label input-large" >   
-                    <input type="checkbox" id="use-billing-address" class="success input-large checkbox-circle  checkbox-success" name="useBilling" {{(isset($billing->id) && $billing->id == $shipping->id) ? "checked" : ""}}>
+                    <input type="checkbox" id="use-billing-address" class="success input-large checkbox-circle  checkbox-success" name="useBilling">
                     <span class=success>Use Billing Address<span>
                 </label>
             </div>
-            <div id="shipping-address-div" style="{{((isset($billing->id)) && $billing->id == $shipping->id) ? "display:none" : ""}}">
+            <div id="shipping-address-div">
                 <form role='form' id='shipping-address-form' action="{{URL::route('orderShippingAddress')}}"
                       method="post"> 
                     <!-- This is not good. Fighting lack of macro in PHP. Really want to pass shipping as null -->

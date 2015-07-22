@@ -36,7 +36,7 @@ class CartController extends Controller {
             $order->setStatus(Order::PENDING);
             $order->last_status_change = $time;
             $order->save();
-            Cookie::queue(CART_COOKIE, $order->id, 60);
+            $this->createCartCookie($order->id);
         } else {
             $order = Order::find($orderId);
             if (!isset($order)) {
@@ -52,6 +52,12 @@ class CartController extends Controller {
         $cnt = self::getCartCnt($order->id);
         DB::commit();
         return "$cnt";
+    }
+    
+    protected function createCartCookie($value)
+    {
+            $timeout= env('CART_TIMEOUT', '10080'); // Default is 1 week
+            Cookie::queue(CART_COOKIE, $value, intval($timeout));        
     }
 
     public static function getCartCnt($cart = null) {

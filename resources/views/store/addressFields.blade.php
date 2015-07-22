@@ -34,7 +34,7 @@
 
 
 <div class="form-group required col-xs-12 input-group-sm">
-    <label class="control-label i requirednput-sm">Address</label>
+    <label class="control-label i input-sm">Address</label>
     <div>
         <input type="text" class="form-control required input-sm" name="line1" value="{{ emptyStr($address->line_1) }}">
     </div>    
