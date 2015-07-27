@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/config/database.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/resources/views/store/orderConfirm.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/app/Http/Controllers/Store/CatalogController.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/config/app.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/resources/views/store/catalogPage.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/resources/views/store/productInfo.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/public/css/store1.css</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/app/Http/Controllers/Store/CartController.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/public/js/store1.js</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/vendor/laravel/framework/src/Illuminate/Console/Application.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/resources/views/store/checkout.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/storage/framework/views/81aaa4de0a876444373f0d7b1c2fba50</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/.gitignore</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/app/Http/routes.php</file>
+            <file>file:/C:/xampp/htdocs/Laravel/mweaver/resources/views/store/addressFields.blade.php</file>
+        </group>
+    </open-files>
+</project-private>
