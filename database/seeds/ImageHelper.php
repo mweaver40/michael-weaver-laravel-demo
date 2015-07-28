@@ -1,19 +1,23 @@
 <?php
-
+use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Mweaver\Store\Product\Product;
 use Mweaver\Store\Product\Image;
 
-class ImageHelper {
+class ImageHelper extends Seeder {
     /* PHP can't handle complex init in the declartation, see bottom 
      * of this file for workaround
      */
 
+    
     public static $srcDir;
     public static $destDir;
     public static $imagesPerCategory = 5;
     public static $imageLookup;
 
+    public function run() {
+        self::createImageFilesForProducts();
+    }
     /**
      * Not strictly speaking part of DB creation but easiset to do it here 
      */
@@ -78,11 +82,12 @@ class ImageHelper {
             $imageKey = $offSet . "_" . mt_rand(1, self::$imagesPerCategory);
             $src = self::$imageLookup[$imageKey];
             foreach ($images as $image) {
-                copy(self::$srcDir . "\\$src", self::$destDir . "\\" . $image->name);              
+                symlink(self::$srcDir . "\\$src", self::$destDir . "\\" . $image->name);              
             }
         }
     }
 }
+
 
 ImageHelper::$destDir = __DIR__ . "\..\..\public\images\store\products\small";
 ImageHelper::$srcDir = ImageHelper::$destDir . '\\' . "master";

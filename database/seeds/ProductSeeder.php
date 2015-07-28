@@ -82,7 +82,7 @@ class ProductSeeder extends DrivenSeeder {
             foreach (range(1, 2) as $rank) {
                 $type = "thumb";
                 $product_id = $product->id;
-                $location = "/image/store/products/small";
+                $location = "/images/store/products/small";
                 $name = $product->id . "_$rank.jpg";
                 $rank;
                 $images[] = ['type' => $type, 'product_id' => $product_id,

@@ -39,13 +39,15 @@ class CategorySeeder extends Seeder {
     }
     
     public static function determineCategory($product) {
-        return (($product->id) % self::$categoryCnt) + self::$firstCategory - 1;
+        return (($product->id) % self::$categoryCnt) + self::$firstCategory;
     }
+    
     
     public static function  determineCategoryOffset($product)
     {
-        return (($product->id - 1) % self::$categoryCnt) + 1;
+        return $product->id % self::$categoryCnt + 1;
     }
+     
 
    
 }

@@ -8,6 +8,8 @@ use Mweaver\Store\Product\Price;
 use Mweaver\Store\Catalog\Catalog;
 use Mweaver\Store\Catalog\Category;
 use Mweaver\Store\Catalog\Description;
+use Mweaver\Store\Order\ItemOrdered;
+use Mweaver\Store\Order\Order;
 
 class DatabaseSeeder extends Seeder {
 
@@ -40,11 +42,13 @@ class DatabaseSeeder extends Seeder {
         // Delete all the product and catalog releated table rows. Trunc is more efficant but so what
         Model::unguard();
         
-        // Vategory must go first since other code uses the category
+        // Category must go first since other code uses the category
         Category::whereRaw('id is not null')->delete();
+        ItemOrdered::whereRaw('id is not null')->delete();
+        Order::whereRaw('id is not null')->delete();
         Price::whereRaw('id is not null')->delete(); 
         Image::whereRaw('id is not null')->delete();     
-        Catalog::whereRaw('id is not null')->delete();
+        Catalog::whereRaw('id is not null')->delete();      
         Product::whereRaw('id is not null')->delete();
         Description::whereRaw('id is not null')->delete();
         ImageHelper::deleteAllImageFilesAssociatedWithProducts();
