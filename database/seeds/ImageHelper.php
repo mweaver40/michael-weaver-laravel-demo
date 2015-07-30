@@ -82,13 +82,13 @@ class ImageHelper extends Seeder {
             $imageKey = $offSet . "_" . mt_rand(1, self::$imagesPerCategory);
             $src = self::$imageLookup[$imageKey];
             foreach ($images as $image) {
-                symlink(self::$srcDir . "\\$src", self::$destDir . "\\" . $image->name);              
+                symlink(self::$srcDir . "/$src", self::$destDir . "/" . $image->name);              
             }
         }
     }
 }
 
 
-ImageHelper::$destDir = __DIR__ . "\..\..\public\images\store\products\small";
-ImageHelper::$srcDir = ImageHelper::$destDir . '\\' . "master";
+ImageHelper::$destDir = __DIR__ . "/../../public/images/store/products/small";
+ImageHelper::$srcDir = ImageHelper::$destDir . "/master";
 ImageHelper::$imageLookup = ImageHelper::getImageKeyArrary();
