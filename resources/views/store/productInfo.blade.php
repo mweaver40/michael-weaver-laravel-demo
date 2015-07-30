@@ -28,7 +28,7 @@
     <div class="col-md-6">
         <h2>{{$catalog->name}}</h2>
         <div class="col-md-12">
-            {{$catalog->description->description}}
+            {{$productDescription}}
         </div>
         <div class="col-md-12">
             <h2>${{$price->price}}</h2>
