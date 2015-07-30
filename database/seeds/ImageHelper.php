@@ -27,7 +27,7 @@ class ImageHelper extends Seeder {
         foreach ($imageFiles as $imageFile) {
             if ($imageFile == '.' || $imageFile == '..')
                 continue;
-            $file = self::$destDir . '\\' . $imageFile;
+            $file = self::$destDir . '/' . $imageFile;
             if (is_dir($file))
                 continue;
             //echo "$imageFile";
