@@ -39,7 +39,6 @@ $(document).ready(function () {
             $('.storeMsg').hide();
             $('#addToCartOK').show();
         }).fail(function (jqXHR) {
-            alert("Fail");
             $('.storeMsg').hide();
             $('#addToCartFail').show();
         }).always(function () {
