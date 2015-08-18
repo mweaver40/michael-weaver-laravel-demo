@@ -12,6 +12,7 @@ $(document).ready(function () {
 
 
 
+
     /**
      * Moves left menu panel on and off the users viewport by toggeling a class
      * that manipulates the border.
