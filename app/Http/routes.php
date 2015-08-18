@@ -37,7 +37,13 @@ Route::get('users', function()
  * dwon  lot in a relational databse if we can have arbitrary n elements in
  * a lookup tree
  */ 
+Route::get('scuba/store', [
+    'http',
+    'as' => 'storeMain', 'uses' => 'Store\CatalogController@mainStorePage',
+]);
+
 Route::get('scuba/{categoryName?}', [
+    'http',
     'as' => 'catalogPage', 'uses' => 'Store\CatalogController@getCatalogPage',
 ]);
 
@@ -108,6 +114,8 @@ Route::get(
     )
 );
 
+
+
 Route::post(
     'auth/register', array(
         'as'   => 'register',
@@ -136,3 +144,31 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
+/*
+ * The Michael fromt end routes
+ */
+
+
+/**
+ * Short description of me as a Software Developer
+ */
+Route::get('about-me', ['as' => 'aboutMe', function()
+{
+   return View::make('michael.aboutMe');
+}]);
+
+Route::get('about-store', ['as' => 'aboutStore', function()
+{
+   return View::make('michael.aboutStore');
+}]);
+
+Route::get('about-site', ['as' => 'aboutSite', function()
+{
+   return View::make('michael.aboutSite');
+}]);
+
+Route::get('contact', ['as' => 'contact', function()
+{
+   return View::make('michael.contact');
+}]);

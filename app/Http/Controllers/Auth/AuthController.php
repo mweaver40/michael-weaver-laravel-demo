@@ -7,11 +7,10 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-use Mweaver\Http\Controllers\Store\CatalogController;
+use Mweaver\Http\Controllers\Store\StoreController;
 use Illuminate\Support\Facades\URL;
 
-
-class AuthController extends Controller {
+class AuthController extends StoreController {
     /*
       |--------------------------------------------------------------------------
       | Registration & Login Controller
@@ -25,9 +24,9 @@ class AuthController extends Controller {
 
 use AuthenticatesAndRegistersUsers {
         postRegister as postRegisterTrait;
-      
     }
-public $redirectAfterLogout;
+
+    public $redirectAfterLogout;
 
     /**
      * Create a new authentication controller instance.
@@ -37,32 +36,28 @@ public $redirectAfterLogout;
      * @return void
      */
     public function __construct(Guard $auth, Registrar $registrar) {
+        parent::__construct();
         $this->auth = $auth;
         $this->registrar = $registrar;
-        $this->redirectAfterLogout= URL::route('catalogPage');
+        $this->redirectAfterLogout = URL::route('storeMain');
         $this->middleware('guest', ['except' => 'getLogout']);
-    }
-    
-    public function postRegister(Request $request)
-    {
-        $this->postRegisterTrait($request);
         
-        return redirect()->intended($this->redirectPath());
+    }
 
+    public function postRegister(Request $request) {
+        $this->postRegisterTrait($request);
+
+        return redirect()->intended($this->redirectPath());
     }
-    
-    public function getLogin()
-    {
-        $data = CatalogController::getCatalogPageBasicInformation();
+
+    public function getLogin() {
+        $data = $this->getCatalogPageBasicInformation();
         return view('store.storeAuth', $data);
-       
     }
-    
-    public function getRegister()
-    {
-        $data = CatalogController::getCatalogPageBasicInformation();
-        return view('store.storeAuth', $data);   
+
+    public function getRegister() {
+        $data = $this->getCatalogPageBasicInformation();
+        return view('store.storeAuth', $data);
     }
-    
 
 }

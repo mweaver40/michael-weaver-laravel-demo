@@ -22,9 +22,13 @@ use Mweaver\Store\Catalog\Category;
 use Mweaver\Store\Product\Image;
 use Mweaver\Store\Product\Price;
 
-class CatalogController extends Controller {
+class CatalogController extends StoreController {
 
-    //put your code here
+ public function mainStorePage() {
+      $data = $this->getCatalogPageBasicInformation();      
+      return view('store.storePage', $data);
+ }
+ 
     public function getCatalogPage($categoryName = null) {
 
         $catalog = new Catalog();
@@ -36,15 +40,14 @@ class CatalogController extends Controller {
         $offset = ($page - 1) * $limit;
         //$category = new Category();
         // todo! change the categories
-
-        $categories = Category::orderBy('id')->get();
+        $data = $this->getCatalogPageBasicInformation();
+        $categories = $data['categories'];
         $category = isset($categoryName) ? $this->getCategoryByName($categories, $categoryName) : $categories[0];
-        $data['categories'] = $categories;
         $data['catalogItems'] = $catalog->getCatalogPage($now, 'thumb', $category->id, $offset, $limit);
+        $data['category'] = $category;
         $data['totalItems'] = $catalog->getCatalogCategoryItemCnt($category->id, $now);
         $data['limit'] = $limit;
-        $data['category'] = $category;
-        $data['cartCnt'] = CartController::getCartCnt();
+        //$data['category'] = $category;
         return view('store.catalogPage', $data);
     }
 
@@ -68,10 +71,7 @@ class CatalogController extends Controller {
         // Not great idea here. Need to rethink. Get the most important image 
         // to dispaly. 
         // Use thumbnails for now since we don't have any better image
-        $categories = Category::orderBy('id')->get();
-        $category = isset($categoryName) ? $this->getCategoryByName($categories, $categoryName) : $categories[0];
-        $data['categories'] = $categories;
-        $cartCnt = CartController::getCartCnt();
+        $basic = $this->getCatalogPageBasicInformation();
         /* TODO: reconsider this, we look for a description associated with catalog and if 
          *  it is null we then go after the description associated with the product. 
          *  This may be overly complicated and unecessary. Maybe catalog should always 
@@ -82,18 +82,11 @@ class CatalogController extends Controller {
         } else {
             $description = $catalog->product->description;
         }
-        return view('store.productInfo', ['catalog' => $catalog, 'images' => $images,
-            'price' => $price, 'categories' => $categories,
-            'cartCnt' => $cartCnt, 'productDescription' => $description]);
+        $data = array_merge($basic, ['catalog' => $catalog, 'images' => $images,
+            'price' => $price,  'productDescription' => $description]);
+        return view('store.productInfo', $data);
     }
 
-    public static function getCatalogPageBasicInformation() {
-        $data = array();
-        $categories = Category::orderBy('id')->get();
-        $data['categories'] = $categories;
-        $cartCnt = CartController::getCartCnt();
-        $data['cartCnt'] = $cartCnt;
-        return $data;
-    }
+   
 
 }

@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\URL;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" style="background: #dfd" href="#"><span style="margin-top: -50%"> Hire</span> Mike</a>
+                <a class="navbar-brand" style="background: #dfd" href="{{url('/')}}"><span style="margin-top: -50%"> Hire</span> Mike</a>
 
             </div>
             <div id="navbar" class="collapse navbar-collapse">
@@ -52,7 +52,7 @@ use Illuminate\Support\Facades\URL;
 
         </div><!--/.navbar -->
 
-        <div class="container-fluid">
+        <div>
 
             <div class="row-offcanvas row-offcanvas-left" >
                 <div id="sidebar" class="sidebar-offcanvas" >

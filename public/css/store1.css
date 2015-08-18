@@ -23,6 +23,21 @@ body {
     overflow:auto;
 }
 
+.jumbotron-store-main {
+    /* add bootstrap jumbotron background image */
+    background: url("http://mike/images/copenhagen_mike.jpg"); 
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    /* change bootstrap jumbotron text color */
+    color: #FFF;
+}
+
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 40%;
+      margin: auto;
+  }
+
 .col-md-3:nth-child(4n+1){
     clear: both;
 }
@@ -173,3 +188,7 @@ a[disabled] {
        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
+
+ .col-md-bottom {
+    vertical-align: top;
+  }

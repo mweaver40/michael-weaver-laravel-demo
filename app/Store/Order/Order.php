@@ -24,6 +24,22 @@ class Order extends Model {
 
     static protected $statusStates = NULL;
 
+    /**
+     * 
+     * @param type $status
+     * Beacuse PHP has no overloaded methods and because Laravel depends
+     * on the default constructor (yes the constructor can be altered but it 
+     * seems to not be a good idea) we create this semi factory method
+     * 
+     */
+    public static function build($status, $time) {
+        $order = new Order();
+        $order->created = $time;
+        $order->setStatus($status);
+        $order->last_status_change = $time;
+        return $order;
+    }
+
     public function items() {
         return $this->hasMany('Mweaver\Store\Order\ItemOrdered');
     }
@@ -59,6 +75,29 @@ class Order extends Model {
 
     public function shippingAddress() {
         return $this->hasOne('Mweaver\Store\Address', 'id', 'shipping_address');
+    }
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $state
+     * @return type
+     * Return the number of items for the the order. 
+     */
+    public static function getItemCntByState($id, $state)
+    {
+               /* 
+         * This demonstrates why I am NOT fond of the query builder
+         * It takes somehting simple like SQL and makes it difficult 
+         * to write and understand while adding no extra value. 
+         * This is why I often use raw where statements.
+         */
+        
+        $count = ItemOrdered::where('order_id', '=', $id)
+                ->where('status', '=', $state)
+                ->join('order', 'order.id', '=', 'order_id')
+                ->sum('quantity');
+        return (!isset($count)) ? 0 : $count;
     }
 
 }

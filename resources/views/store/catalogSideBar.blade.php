@@ -1,7 +1,6 @@
 
 
 <ul class="nav nav-pills nav-stacked">
-
     @foreach ($categories as $cat) 
     @if ("" == $cat->name)
     <?php $active = 'active' ?>
