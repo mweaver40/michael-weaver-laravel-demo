@@ -86,7 +86,7 @@ use Illuminate\Support\Facades\URL;
                     </div>
                     <div class="col-md-12">
                         <p class="visible-xs">
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left">Menu</i></button>
                         </p>
                     </div>
 
@@ -104,5 +104,6 @@ use Illuminate\Support\Facades\URL;
     </body>
 
 
+    
 
 </html>  

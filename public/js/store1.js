@@ -91,6 +91,12 @@ $(document).ready(function () {
         authOptions(this)
     });
 
+    /**
+     * Submit for authorization. This will setup the guest account values 
+     * if required. It also changes the URL as required to do a register
+     * instead of a login.
+     */
+    
     $('#checkout-auth-form').submit(function () {
         form = $('#checkout-auth-form');
         selectedOption = form.find('input[type=radio]:checked');
