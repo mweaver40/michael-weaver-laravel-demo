@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\URL;
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
+        <link rel="icon" type="image/png"
+              href="{{ URL::asset('/images/man.png')}}" />
 
-        <title>Test Page</title>
+        <!-- Needs to change to a yield so we can have changing titles -->
+        <title>Salty Dog Scuba</title>
 
         <!-- Bootstrap core CSS -->
         <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->

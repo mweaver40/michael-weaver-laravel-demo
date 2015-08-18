@@ -11,6 +11,10 @@
     <head>
         <link rel="stylesheet" href="{{ URL::asset('/css/bootstrap.css')}}"/>
         <link rel="stylesheet" href="{{ URL::asset('/css/welcome.css')}}"/>
+        <title>Mikes Demo</title>
+        <link rel="icon" type="image/png"
+              href="{{ URL::asset('/images/man.png')}}" />
+
     </head>        
     <body>
         <nav class="navbar navbar-default">
