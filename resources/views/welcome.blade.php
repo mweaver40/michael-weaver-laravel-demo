@@ -1,7 +1,7 @@
 @extends('michael.layout.master')
         @section('content')
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron jumbotron-welcome">
                 <h1>Michael Weaver </h1>
                 <p>Over 25 years of professional Software Development experience </p>
                 <p>Extensive experience in many languages including Java, PHP and C<p>

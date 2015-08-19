@@ -7,9 +7,9 @@ and open the template in the editor.
     Created on : Aug 5, 2015, 9:53:17 AM
     Author     : MIchael
 */
-.jumbotron {
+.jumbotron-welcome {
     /* add bootstrap jumbotron background image */
-    background: url("http://mike/images/ocean.jpg"); 
+    background: url("../images/ocean.jpg"); 
     background-size: cover;
     /* background-repeat: no-repeat; */
     /* change bootstrap jumbotron text color */
