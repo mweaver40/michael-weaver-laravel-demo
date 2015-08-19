@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="mike-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Abut Me<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Me<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{URL::route('aboutMe')}}">Who I am</a></li>
                                 <li><a href="{{URL::to('/') . '/Resume6.doc'}}">Download a Resume (MS Doc)</a></li>
