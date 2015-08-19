@@ -9,6 +9,7 @@
 
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="{{ URL::asset('/css/bootstrap.css')}}"/>
         <link rel="stylesheet" href="{{ URL::asset('/css/welcome.css')}}"/>
         <title>Mikes Demo</title>
