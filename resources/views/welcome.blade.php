@@ -5,7 +5,7 @@
 
         <h1>Michael Weaver </h1>
         <ul>
-            <li>Over 25 years of professional Software Development experience</li>
+            <li>10+ years of professional Software Development experience</li>
             <li>Extensive experience in many languages including Java, PHP and C</li>
             <li>Extensive experience in multiple databases and frameworks</li>
         </ul>

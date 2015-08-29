@@ -7,7 +7,7 @@
 all my extensive software development background here but you
 can download my <a href="{{URL::to('/') . '/Resume6.doc'}}">Resume</a> 
 to get that. I am a
-software developer who spent over 25 years  learning to write small
+software developer who spent years learning to write small
 and large applications in a corporate setting with large numbers of
 developers and in small companies with groups all the way down to
 just me. I don't have a rigid way of writing software since the whole
@@ -39,7 +39,7 @@ contracts
 </P>
 <h4>About my sabbatical</h4>
 <P STYLE="margin-bottom: 0in; font-weight: normal">I took a
-sabbatical after over 25 years of continuous work for some things I
+sabbatical after many years of continuous work for some things I
 wanted to do like remodeling a house, moving to a small town and
 learning technical scuba diving. I had no idea what an issue this
 would be with some recruiters. All I can say is I am back now and
